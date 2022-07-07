@@ -1,6 +1,14 @@
 import { Card, TextStyle } from "@shopify/polaris";
 
-const SearchEngineCard = (props) => {
+import { IPage } from "../../../interfaces/IPage";
+
+interface SearchEngineCardProps {
+  page: IPage;
+  text: string;
+  originalURL: string;
+}
+
+const SearchEngineCard: React.FC<SearchEngineCardProps> = (props) => {
   const { page, text, originalURL } = props;
   const URL = "https://ancx-apps.myshopify.com/pages/";
 

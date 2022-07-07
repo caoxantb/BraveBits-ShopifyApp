@@ -1,6 +1,6 @@
 import { FooterHelp, Link } from "@shopify/polaris";
 
-const FooterDefault = () => {
+const FooterDefault: React.FC = () => {
   return (
     <FooterHelp>
       Learn more about{" "}

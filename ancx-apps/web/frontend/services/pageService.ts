@@ -1,6 +1,8 @@
 import { authenticatedFetch } from "@shopify/app-bridge-utils";
 
-const post = async (app, newPage) => {
+import { IPage } from "../interfaces/IPage";
+
+const post = async (app: any, newPage: IPage) => {
   const fetchAPIRequest = authenticatedFetch(app);
   const res = await fetchAPIRequest("/api/pages", {
     method: "POST",
@@ -14,7 +16,7 @@ const post = async (app, newPage) => {
   return data;
 };
 
-const getAll = async (app) => {
+const getAll = async (app: any) => {
   const fetchAPIRequest = authenticatedFetch(app);
   const res = await fetchAPIRequest("/api/pages", {
     method: "GET",
@@ -28,7 +30,7 @@ const getAll = async (app) => {
   return data;
 };
 
-const getCount = async (app) => {
+const getCount = async (app: any) => {
   const fetchAPIRequest = authenticatedFetch(app);
   const res = await fetchAPIRequest("/api/pages/count", {
     method: "GET",
@@ -42,7 +44,7 @@ const getCount = async (app) => {
   return data;
 };
 
-const getById = async (app, id) => {
+const getById = async (app: any, id: string) => {
   const fetchAPIRequest = authenticatedFetch(app);
   const res = await fetchAPIRequest(`/api/pages/${id}`, {
     method: "GET",
@@ -56,7 +58,7 @@ const getById = async (app, id) => {
   return data;
 };
 
-const editById = async (app, id, updatedPage) => {
+const editById = async (app: any, id: string, updatedPage: IPage) => {
   const fetchAPIRequest = authenticatedFetch(app);
   const res = await fetchAPIRequest(`/api/pages/${id}`, {
     method: "PUT",
@@ -71,7 +73,7 @@ const editById = async (app, id, updatedPage) => {
   return data;
 };
 
-const deleteById = async (app, id) => {
+const deleteById = async (app: any, id: string) => {
   const fetchAPIRequest = authenticatedFetch(app);
   await fetchAPIRequest(`/api/pages/${id}`, {
     method: "DELETE",
@@ -82,7 +84,7 @@ const deleteById = async (app, id) => {
   });
 };
 
-const deleteMany = async (app, pages) => {
+const deleteMany = async (app: any, pages: string[]) => {
   const fetchAPIRequest = authenticatedFetch(app);
   await fetchAPIRequest(`/api/pages`, {
     method: "DELETE",

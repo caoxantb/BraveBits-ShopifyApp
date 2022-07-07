@@ -1,4 +1,4 @@
-const toDate = (str) => {
+const toDate = (str: string) => {
   const year = parseInt(str.substring(0, 4));
   const month = parseInt(str.substring(5, 7)) - 1;
   const day = parseInt(str.substring(8, 10));

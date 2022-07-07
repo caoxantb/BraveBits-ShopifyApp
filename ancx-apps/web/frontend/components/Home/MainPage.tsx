@@ -6,13 +6,15 @@ import { Frame, Page, Layout, Card } from "@shopify/polaris";
 
 import PagesEmptyCard from "./PagesEmptyCard";
 import PagesTable from "./PagesTable";
+import FooterDefault from "../FooterDefault";
+
 import pageService from "../../services/pageService";
 import { useAppBridge } from "@shopify/app-bridge-react";
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   const app = useAppBridge();
   const navigate = useNavigate();
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
     pageService.getCount(app).then((res) => setCounter(res.count));
@@ -36,6 +38,7 @@ const MainPage = () => {
           </Layout.Section>
         </Layout>
       </Page>
+      <FooterDefault />
     </Frame>
   );
 };

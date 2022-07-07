@@ -1,6 +1,11 @@
 import { Card, TextContainer, Select } from "@shopify/polaris";
 
-const OnlineStoreCard = (props) => {
+interface OnlineStoreCardProps {
+  handleSelectChange: (value: string) => void;
+  select: string;
+}
+
+const OnlineStoreCard: React.FC<OnlineStoreCardProps> = (props) => {
   const { handleSelectChange, select } = props;
   return (
     <Card title="Online store" sectioned>

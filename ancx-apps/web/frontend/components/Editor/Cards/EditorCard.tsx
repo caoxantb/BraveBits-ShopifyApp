@@ -1,9 +1,19 @@
 import { Card, FormLayout, TextField, TextStyle } from "@shopify/polaris";
 import { Editor } from "@tinymce/tinymce-react";
 
-const EditorCard = (props) => {
+import { IPage } from "../../../interfaces/IPage";
+
+interface EditorCardProps {
+  page: IPage;
+  handleTitleChange: (value: string) => void;
+  handleEditorChange: (value: string, editor: any) => void;
+  handleEditorOnInit: (event: any, editor: any) => void;
+}
+
+const EditorCard: React.FC<EditorCardProps> = (props) => {
   const { page, handleTitleChange, handleEditorChange, handleEditorOnInit } =
     props;
+
   return (
     <Card sectioned>
       <FormLayout>
@@ -14,7 +24,9 @@ const EditorCard = (props) => {
           onChange={handleTitleChange}
           autoComplete="off"
         />
-        <TextStyle style={{ color: "black" }}>Content</TextStyle>
+        <TextStyle>
+          <span style={{ color: "black" }}>Content</span>
+        </TextStyle>
         <Editor
           value={page.content}
           onEditorChange={handleEditorChange}

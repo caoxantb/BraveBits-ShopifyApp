@@ -1,6 +1,6 @@
 import { Layout, Card, EmptyState } from "@shopify/polaris";
 
-const PagesEmptyCard = () => {
+const PagesEmptyCard: React.FC = () => {
   return (
     <EmptyState
       heading="Add pages to your online store"

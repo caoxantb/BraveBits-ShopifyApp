@@ -3,26 +3,26 @@ import { Modal, TextContainer } from "@shopify/polaris";
 import { useNavigate } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
-import discardAtom from "../../../store/discardAtom";
+import cancelAtom from "../../../store/cancelAtom";
 
-const ModalDiscard = () => {
+const ModalCancel: React.FC = () => {
   const navigate = useNavigate();
 
-  const [active, setActive] = useRecoilState(discardAtom);
+  const [active, setActive] = useRecoilState<boolean>(cancelAtom);
 
   return (
     <div>
       <Modal
         open={active}
         onClose={() => setActive(false)}
-        title="Discard all unsaved changes"
+        title="You have unsaved changes"
         secondaryActions={[
           {
-            content: "Continue editing",
+            content: "Cancel",
             onAction: () => setActive(false),
           },
           {
-            content: "Discard changes",
+            content: "Leave page",
             onAction: () => navigate("/"),
             destructive: true,
           },
@@ -30,10 +30,7 @@ const ModalDiscard = () => {
       >
         <Modal.Section>
           <TextContainer>
-            <p>
-              If you discard changes, you'll delete any edits you made since you
-              last saved.
-            </p>
+            <p>If you leave this page, all unsaved changes will be lost.</p>
           </TextContainer>
         </Modal.Section>
       </Modal>
@@ -41,4 +38,4 @@ const ModalDiscard = () => {
   );
 };
 
-export default ModalDiscard;
+export default ModalCancel;

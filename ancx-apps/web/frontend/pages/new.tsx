@@ -1,7 +1,7 @@
 import PageAdd from "../components/Editor/PageAdd";
 import { RecoilRoot } from "recoil";
 
-export default function New() {
+const New: React.FC = () => {
   return (
     <>
       <RecoilRoot>
@@ -9,4 +9,6 @@ export default function New() {
       </RecoilRoot>
     </>
   );
-}
+};
+
+export default New;

@@ -21,28 +21,36 @@ import { useRecoilState } from "recoil";
 import discardAtom from "../../store/discardAtom";
 import deleteAtom from "../../store/deleteAtom";
 
-const PageView = (props) => {
+import { IPage } from "../../interfaces/IPage";
+
+interface PageViewProps {
+  id: any;
+}
+
+const PageView: React.FC<PageViewProps> = (props) => {
   const { id } = props;
   const app = useAppBridge();
   const navigate = useNavigate();
 
-  const [page, setPage] = useState({
+  const [page, setPage] = useState<IPage>({
     title: "",
     content: "",
   });
-  const [visibilitySelected, setVisibilitySelected] = useState(["Visible"]);
-  const [select, setSelect] = useState("Default Page");
-  const [text, setText] = useState("");
+  const [visibilitySelected, setVisibilitySelected] = useState<string[]>([
+    "Visible",
+  ]);
+  const [select, setSelect] = useState<string>("Default Page");
+  const [text, setText] = useState<string>("");
   const [discardActive, setDiscardActive] = useRecoilState(discardAtom);
   const [deleteActive, setDeleteActive] = useRecoilState(deleteAtom);
   const [originalPage, setOriginalPage] = useState({
     title: "",
     content: "",
   });
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   useEffect(() => {
-    pageService.getById(app, id).then((res) => {
+    pageService.getById(app, id).then((res: any) => {
       const item = {
         title: res.title,
         content: res.body_html,
@@ -52,22 +60,25 @@ const PageView = (props) => {
     });
   }, [id]);
 
-  const handleTitleChange = (value) => {
+  const handleTitleChange = (value: string) => {
     setPage({ ...page, title: value });
     console.log(page.title);
   };
-  const handleEditorChange = (value, editor) => {
+  const handleEditorChange = (value: string, editor: any) => {
     setPage({ ...page, content: value });
     setText(editor.getContent({ format: "text" }));
   };
-  const handleEditorOnInit = (event, editor) => {
+  const handleEditorOnInit = (event: any, editor: any) => {
     setText(editor.getContent({ format: "text" }));
   };
-  const handleVisiblilityChange = useCallback(
-    (value) => setVisibilitySelected(value),
+  const handleVisibilityChange = useCallback(
+    (value: string[]) => setVisibilitySelected(value),
     []
   );
-  const handleSelectChange = useCallback((value) => setSelect(value), []);
+  const handleSelectChange = useCallback(
+    (value: string) => setSelect(value),
+    []
+  );
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -146,7 +157,7 @@ const PageView = (props) => {
             <Layout.Section secondary>
               <VisibilityCard
                 visibilitySelected={visibilitySelected}
-                handleVisiblilityChange={handleVisiblilityChange}
+                handleVisibilityChange={handleVisibilityChange}
               />
               <OnlineStoreCard
                 handleSelectChange={handleSelectChange}

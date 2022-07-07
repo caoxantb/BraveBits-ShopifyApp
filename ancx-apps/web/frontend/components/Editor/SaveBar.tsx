@@ -1,6 +1,12 @@
 import { ContextualSaveBar } from "@shopify/polaris";
 
-const SaveBar = (props) => {
+interface SaveBarProps {
+  handleSave: () => void;
+  handleDiscard: () => void;
+  disabledStatus: boolean;
+}
+
+const SaveBar: React.FC<SaveBarProps> = (props) => {
   const { handleSave, handleDiscard, disabledStatus } = props;
   return (
     <ContextualSaveBar

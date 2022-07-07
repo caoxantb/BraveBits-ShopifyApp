@@ -3,10 +3,15 @@ import { Modal, TextContainer } from "@shopify/polaris";
 import { useRecoilState } from "recoil";
 import deleteAtom from "../../../store/deleteAtom";
 
-const ModalDelete = (props) => {
+interface ModalDeleteProps {
+  title: string;
+  handleDelete: () => void;
+}
+
+const ModalDelete: React.FC<ModalDeleteProps> = (props) => {
   const { title, handleDelete } = props;
 
-  const [active, setActive] = useRecoilState(deleteAtom);
+  const [active, setActive] = useRecoilState<boolean>(deleteAtom);
 
   return (
     <div>

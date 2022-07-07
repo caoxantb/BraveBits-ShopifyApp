@@ -7,7 +7,7 @@ import {
   SkeletonDisplayText,
 } from "@shopify/polaris";
 
-const SkeletonPageView = () => {
+const SkeletonPageView: React.FC = () => {
   return (
     <SkeletonPage breadcrumbs title="" primaryAction>
       <Layout>

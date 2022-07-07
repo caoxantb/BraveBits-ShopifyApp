@@ -5,10 +5,23 @@ import {
   Popover,
   Card,
   ChoiceList,
+  FilterInterface,
 } from "@shopify/polaris";
 import { StarFilledMinor, SortMinor } from "@shopify/polaris-icons";
 
-const FilterControl = (props) => {
+interface FilterControlProps {
+  queryValue: string;
+  filters: FilterInterface[];
+  handleQueryValueChange: (value: string) => void;
+  handleQueryValueRemove: () => void;
+  popover: boolean;
+  setPopover: any;
+  selected: string[];
+  handleSorted: (value: string[]) => void;
+  sortedChoices: any;
+}
+
+const FilterControl: React.FC<FilterControlProps> = (props) => {
   const {
     queryValue,
     filters,
@@ -28,7 +41,7 @@ const FilterControl = (props) => {
         //   appliedFilters={appliedFilters}
         onQueryChange={handleQueryValueChange}
         onQueryClear={handleQueryValueRemove}
-        //   onClearAll={handleClearAll}
+        onClearAll={() => {}}
       >
         <div style={{ paddingLeft: "8px" }}>
           <ButtonGroup>
@@ -47,6 +60,7 @@ const FilterControl = (props) => {
                 </Button>
               }
               active={popover}
+              onClose={() => {}}
             >
               <Card sectioned>
                 <ChoiceList

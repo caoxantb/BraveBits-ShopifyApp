@@ -1,8 +1,13 @@
 import { ResourceItem, TextStyle } from "@shopify/polaris";
+import { IPageMeta } from "../../interfaces/IPageMeta";
 
-const PagesTableItem = (props) => {
+interface PagesTableItemProps {
+  item: IPageMeta;
+}
+
+const PagesTableItem: React.FC<PagesTableItemProps> = (props) => {
   const { item } = props;
-  const { id, url, title, content, updatedAt } = item;
+  const { id, url, title, content, updatedAt, updatedAtDateType } = item;
   return (
     <ResourceItem id={id} url={url}>
       <h3>

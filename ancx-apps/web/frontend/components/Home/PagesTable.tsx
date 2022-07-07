@@ -13,24 +13,28 @@ import allPagesAtom from "../../store/allPagesAtom";
 
 import he from "he";
 import dateParse from "../../helpers/dateParse";
-import toDate from "../../helpers/ToDate";
+import toDate from "../../helpers/toDate";
+
+import { IPageMeta } from "../../interfaces/IPageMeta";
 
 const PagesTable = () => {
   const app = useAppBridge();
 
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [queryValue, setQueryValue] = useState("");
-  const [popover, setPopover] = useState(false);
-  const [sortSelected, setSortSelected] = useState(["Newest update"]);
-  const [visibilitySelected, setVisibilitySelected] = useState(["Visible"]);
-  const [pages, setPages] = useRecoilState(allPagesAtom);
-  const [copyPages, setCopyPages] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [queryValue, setQueryValue] = useState<string>("");
+  const [popover, setPopover] = useState<boolean>(false);
+  const [sortSelected, setSortSelected] = useState<string[]>(["Newest update"]);
+  const [visibilitySelected, setVisibilitySelected] = useState<string[]>([
+    "Visible",
+  ]);
+  const [pages, setPages] = useRecoilState<IPageMeta[]>(allPagesAtom);
+  const [copyPages, setCopyPages] = useState<IPageMeta[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     pageService.getAll(app).then((res) => {
-      const items = res.map((r) => ({
+      const items = res.map((r: any) => ({
         id: r.id,
         url: `/pages/${r.id}`,
         title: r.title,
@@ -49,7 +53,7 @@ const PagesTable = () => {
   const deleteMany = async () => {
     await pageService.deleteMany(app, selectedItems);
     const pagesAfterDeletion = pages.filter(
-      (p) => !selectedItems.includes(p.id)
+      (p: IPageMeta) => !selectedItems.includes(p.id)
     );
     setPages(pagesAfterDeletion);
     setCopyPages(pagesAfterDeletion);
@@ -86,7 +90,7 @@ const PagesTable = () => {
     { label: "Title Z-A", value: "Title Z-A" },
   ];
 
-  const handleQueryValueChange = (value) => {
+  const handleQueryValueChange = (value: string) => {
     setQueryValue(value);
     const pagesFiltered = copyPages.filter(
       (p) => p.title.includes(value) || p.content.includes(value)
@@ -97,29 +101,32 @@ const PagesTable = () => {
     setQueryValue("");
     setPages(copyPages);
   };
-  const handleSorted = (value) => {
+  const handleSorted = (value: string[]) => {
     setSortSelected(value);
     let pagesToSort = [...pages];
     console.log(value);
     switch (value[0]) {
       case "Newest update":
         pagesToSort.sort(
-          (page1, page2) => page2.updatedAtDateType - page1.updatedAtDateType
+          (page1: IPageMeta, page2: IPageMeta) =>
+            page2.updatedAtDateType - page1.updatedAtDateType
         );
         break;
       case "Oldest update":
         pagesToSort.sort(
-          (page1, page2) => page1.updatedAtDateType - page2.updatedAtDateType
+          (page1: IPageMeta, page2: IPageMeta) =>
+            page1.updatedAtDateType - page2.updatedAtDateType
         );
         break;
       case "Title A-Z":
-        pagesToSort.sort((page1, page2) =>
+        pagesToSort.sort((page1: IPageMeta, page2: IPageMeta) =>
           page1.title.localeCompare(page2.title)
         );
         break;
       case "Title Z-A":
         pagesToSort.sort(
-          (page1, page2) => -1 * page1.title.localeCompare(page2.title)
+          (page1: IPageMeta, page2: IPageMeta) =>
+            -1 * page1.title.localeCompare(page2.title)
         );
         console.log(pagesToSort);
     }
@@ -128,11 +135,12 @@ const PagesTable = () => {
   };
 
   const handleVisiblilityChange = useCallback(
-    (value) => setVisibilitySelected(value),
+    (value: string[]) => setVisibilitySelected(value),
     []
   );
+  const onSelectionChange = (value: string[]) => setSelectedItems(value);
 
-  const renderItem = (item) => <PagesTableItem item={item} />;
+  const renderItem = (item: IPageMeta) => <PagesTableItem item={item} />;
 
   const filters = [
     {
@@ -192,7 +200,7 @@ const PagesTable = () => {
             items={pages}
             renderItem={renderItem}
             selectedItems={selectedItems}
-            onSelectionChange={setSelectedItems}
+            onSelectionChange={onSelectionChange}
             filterControl={filterControl}
             bulkActions={bulkActions}
           ></ResourceList>

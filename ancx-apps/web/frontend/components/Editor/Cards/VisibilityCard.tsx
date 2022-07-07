@@ -1,16 +1,22 @@
 import { Card, ChoiceList, Button } from "@shopify/polaris";
 
-const VisibilityCard = (props) => {
-  const { visibilitySelected, handleVisiblilityChange } = props;
+interface VisibilityCardProps {
+  visibilitySelected: string[];
+  handleVisibilityChange: (value: string[]) => void;
+}
+
+const VisibilityCard: React.FC<VisibilityCardProps> = (props) => {
+  const { visibilitySelected, handleVisibilityChange } = props;
   return (
     <Card sectioned title="Visibility">
       <ChoiceList
+        title=""
         choices={[
           { label: "Visible (as of now)", value: "Visible" },
           { label: "Hidden", value: "Hidden" },
         ]}
         selected={visibilitySelected}
-        onChange={handleVisiblilityChange}
+        onChange={handleVisibilityChange}
       />
       <br />
       <Button plain>Set visibility date</Button>

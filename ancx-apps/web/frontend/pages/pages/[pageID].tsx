@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 
 import PageView from "../../components/Editor/PageView";
 
-const SinglePage = () => {
+const SinglePage: React.FC = () => {
   const { pageID } = useParams();
   return (
     <>

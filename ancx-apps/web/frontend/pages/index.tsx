@@ -1,13 +1,11 @@
 import MainPage from "../components/Home/MainPage";
-import FooterDefault from "../components/FooterDefault";
 import { RecoilRoot } from "recoil";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <RecoilRoot>
         <MainPage />
-        <FooterDefault />
       </RecoilRoot>
     </>
   );
